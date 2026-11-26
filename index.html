@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dinámica del Gruñón Verde - CECyTEM Neza 2</title>
+<style>
+  body{margin:0;font-family:Arial;text-align:center;background:#fff7e6;color:#333}
+  header{background:#0B6E4F;color:white;padding:25px 15px}
+  header h1{font-size:30px;margin:5px 0}
+  .grinch-header{width:180px;height:180px;object-fit:cover;border-radius:50%;border:5px solid #ffcc00;box-shadow:0 5px 15px #00000040;background:white}
+  .badge{background:#ffcc00;color:#111;padding:5px 15px;border-radius:20px;font-weight:bold;display:inline-block}
+  .foto{width:100%;max-width:600px;border-radius:20px;margin:15px auto;display:block;box-shadow:0 5px 15px #00000030}
+  .pie-foto{color:#888;font-size:13px}
+  .card{background:white;margin:15px auto;padding:20px;border-radius:20px;box-shadow:0 5px 15px #00000015;max-width:600px;text-align:left}
+  .equipos{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .item{background:white;width:180px;border-radius:15px;padding:10px;box-shadow:0 3px 10px #00000015;cursor:pointer;border:3px solid #eee;text-align:center}
+  .item.activo{border-color:#0B6E4F;background:#e8fff5}
+  .item img{width:100%;height:140px;object-fit:cover;border-radius:10px;background:#e8fff5}
+  .item b{display:block;margin:5px 0}
+  .btn{background:#D32F2F;color:white;border:none;padding:14px 28px;border-radius:25px;font-weight:bold;font-size:16px;cursor:pointer;width:100%;margin-top:10px}
+  .btn-whats{background:#25D366;color:white;border:none;padding:12px 20px;border-radius:25px;font-weight:bold;cursor:pointer;margin:5px}
+  .btn-gris{background:#333;color:white;border:none;padding:12px 20px;border-radius:25px;font-weight:bold;cursor:pointer;margin:5px}
+  input, select{width:94%;padding:12px;margin:8px 0;border-radius:10px;border:1px solid #ccc;font-size:16px}
+  label{font-weight:bold;display:block}
+  #resultado{display:none;background:#e8ffe8;padding:20px;margin:15px auto;border-radius:20px;border:2px solid #25D366;max-width:600px}
+  .barra{height:22px;background:#eee;border-radius:10px;overflow:hidden;margin:5px 0}
+  .relleno{height:100%;color:white;font-size:12px;line-height:22px;text-align:center}
+  .relleno.verde{background:#0B6E4F;width:60%}
+  .relleno.rojo{background:#D32F2F;width:40%}
+  .footer{padding:20px;color:#888}
+  #voto-actual{text-align:center;font-weight:bold;color:#0B6E4F}
+</style>
+</head>
+<body>
+
+<header>
+  <img class="grinch-header" src="img/grinch.jpg" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/en/3/35/The_Grinch_%282018%29_poster.png';">
+  <h1>CECyTEM Neza 2</h1>
+  <p>Dinámica del Gruñón Verde con la Comunidad</p>
+  <span class="badge">📍 Plantel Nezahualcóyotl II</span>
+</header>
+
+<img class="foto" src="img/plantel.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800';">
+<p class="pie-foto">Foto: Nuestro plantel CECyTEM Neza 2</p>
+
+<div class="card">
+  <h2>🎲 Dinámica con la Comunidad</h2>
+  <p><b>¿Eres Team Gruñón o Team Navidad?</b><br>
+  1️⃣ Elige tu equipo<br>
+  2️⃣ Llena el formulario<br>
+  3️⃣ Vemos qué equipo ganó en la comunidad 🏆</p>
+</div>
+
+<div class="card">
+  <h2>💚 1. Elige tu equipo</h2>
+  <div class="equipos">
+    <div class="item" onclick="votar('Team Gruñón', this)">
+      <img src="img/grinch.jpg" onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/en/3/35/The_Grinch_%282018%29_poster.png';">
+      <b>💚 Team Gruñón</b>
+      <span>Odio la Navidad, soy gruñón</span>
+    </div>
+    <div class="item" onclick="votar('Team Navidad', this)">
+      <img src="https://images.unsplash.com/photo-1543589077-47d81606c1bf?w=400">
+      <b>🎄 Team Navidad</b>
+      <span>Amo la Navidad y los regalos</span>
+    </div>
+  </div>
+  <p id="voto-actual">Aún no has votado 👆 Pica tu equipo</p>
+</div>
+
+<div class="card">
+  <h2>📝 2. Formulario de la Comunidad</h2>
+  <form id="formulario">
+    <label>Tu nombre:</label>
+    <input type="text" id="nombre" placeholder="Ejemplo: Joshua Salazar" required>
+    <label>Tu grupo:</label>
+    <select id="grupo">
+      <option>1A</option><option>1B</option><option>2A</option><option>2B</option><option>3A</option><option>3B</option>
+    </select>
+    <label>¿Qué le robarías a la Navidad?</label>
+    <input type="text" id="robar" placeholder="Ejemplo: Los regalos, el pavo...">
+    <label>Tu WhatsApp:</label>
+    <input type="tel" id="celular" placeholder="5512345678">
+    <button class="btn" type="submit">✅ Enviar Mi Voto</button>
+  </form>
+</div>
+
+<div id="resultado">
+  <h2>✅ ¡Tu voto contó!</h2>
+  <p id="texto-resultado"></p>
+  <h3>📊 Resultados de la comunidad:</h3>
+  <p>💚 Team Gruñón</p>
+  <div class="barra"><div class="relleno verde">60%</div></div>
+  <p>🎄 Team Navidad</p>
+  <div class="barra"><div class="relleno rojo">40%</div></div>
+  <button class="btn-whats" onclick="mandarWhatsApp()">📲 Mandar por WhatsApp</button>
+  <button class="btn-gris" onclick="location.reload()">🔄 Votar otra vez</button>
+</div>
+
+<p class="footer">Dinámica del Gruñón Verde • Comunidad CECyTEM Neza 2 • 2026</p>
+
+<script>
+let voto = "";
+let datos = {};
+function votar(equipo, el){
+  voto = equipo;
+  document.querySelectorAll('.item').forEach(i=>i.classList.remove('activo'));
+  el.classList.add('activo');
+  document.getElementById("voto-actual").innerText = "Tu voto es: " + equipo + " ✅";
+}
+document.getElementById("formulario").addEventListener("submit", function(e){
+  e.preventDefault();
+  let nombre = document.getElementById("nombre").value;
+  let grupo = document.getElementById("grupo").value;
+  let robar = document.getElementById("robar").value || "Nada, soy buena onda";
+  let cel = document.getElementById("celular").value;
+  if(!voto){ alert("Primero pica tu equipo 👆"); return; }
+  datos = {nombre, grupo, voto, robar, cel};
+  document.getElementById("texto-resultado").innerHTML = "<b>"+nombre+"</b> del grupo <b>"+grupo+"</b> es <b>"+voto+"</b><br>Le robaría a la Navidad: "+robar;
+  document.getElementById("resultado").style.display="block";
+  document.getElementById("resultado").scrollIntoView({behavior:"smooth"});
+});
+function mandarWhatsApp(){
+  let texto = "🎄 *DINÁMICA DEL GRUÑÓN VERDE - CECyTEM NEZA 2* 🎄\n\n👤 Nombre: "+datos.nombre+"\n🏫 Grupo: "+datos.grupo+"\n💚 Mi equipo: "+datos.voto+"\n🎁 Le robaría a la Navidad: "+datos.robar;
+  window.open("https://wa.me/?text="+encodeURIComponent(texto),"_blank");
+}
+</script>
+</body>
+</html>
